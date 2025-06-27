@@ -92,19 +92,31 @@ DistCache/
 ### Run_Tests result
 
 [----------] Global test environment tear-down
+
 [==========] 8 tests from 5 test suites ran. (2023 ms total)
+
 [  PASSED  ] 7 tests.
+
 [  FAILED  ] 1 test, listed below:
+
 [  FAILED  ] WALTest.AppendAndReplay
+
 
 ### Benchmark result
 root@595fa24b7c68:/app/build# ./benchmark/run_benchmark | tee benchmark_results.txt
+
 [Benchmark] Initializing...
+
 [Benchmark] SET throughput: 273306 ops/sec
+
 Latency: 365.89ms
+
 [Benchmark] GET throughput: 897644 ops/sec | Hits: 50000
+
 Latency: 55.7014ms
+
 [Benchmark] JSON Report: {"latency":5.5}
+
 root@595fa24b7c68:/app/build# 
 
 - Designed and **Single-threaded benchmark** a custom in-memory LRU Cache in C++ supporting 100K entries, achieving 273K SET ops/sec and 897K GET ops/sec with 100% hit rate and sub-ms latencies.
