@@ -110,6 +110,8 @@ Latency: 55.7014ms
 root@595fa24b7c68:/app/build# 
 ```
 
+![Screenshot 2025-06-28 at 1 00 58 AM](https://github.com/user-attachments/assets/a190ed45-a3a3-472d-8743-0e798b4286d6)
+
 - Designed and **Single-threaded benchmark** a custom in-memory LRU Cache in C++ supporting 100K entries, achieving 273K SET ops/sec and 897K GET ops/sec with 100% hit rate and sub-ms latencies.
 - Demonstrated low-latency reads (~1.1µs) and high throughput under 100K operations workload.
        - 100,000 keys inserted
@@ -121,6 +123,9 @@ root@595fa24b7c68:/app/build#
 ## Failure
 
 Since `WALTest` is failing due to a **test race condition**, fixing it (via `file.close()` or adding `sleep`) will help make your resume even stronger and allow you to claim: 100% passing unit tests in Dockerized test suite.
+
+![Screenshot 2025-06-27 at 11 04 17 PM](https://github.com/user-attachments/assets/22c105b2-aaba-4247-8e85-bcc3f4780d54)
+
 
 ---
 
