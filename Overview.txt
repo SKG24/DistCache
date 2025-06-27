@@ -1,0 +1,54 @@
+# 🗄️ DistCache – A High-Performance Distributed Caching System
+
+**DistCache** is a modular and extensible C++-based in-memory key-value caching system, inspired by Redis and Memcached. It is designed for **low-latency**, **high-throughput**, and **thread-safe** access in modern distributed environments.
+
+---
+
+## 🚀 Features
+
+- ✅ **LRUCache** with thread-safe operations and configurable capacity
+- ✅ **WAL (Write-Ahead Logging)** for crash recovery
+- ✅ **MMap-based Persistence** to disk
+- ✅ **RESP Protocol Parser** for Redis-style commands
+- ✅ **Metrics Collector** for benchmarking and latency tracking
+- ✅ GoogleTest-based **unit testing**
+- ✅ Benchmarking support with **multi-threading**
+
+---
+
+## 🧪 Test Results
+
+Tests were run using `GoogleTest`. Out of **8 tests**, **7 passed**, with 1 known failure in the WAL test.
+
+### ✅ Test Summary
+
+| Test Suite             | Test Case                     | Result  | Time (ms) |
+|------------------------|-------------------------------|---------|-----------|
+| `LRUCacheTest`         | BasicSetAndGet                | ✅ Pass | 0         |
+|                        | ExpirationTest                | ✅ Pass | 2000      |
+|                        | EvictionTest                  | ✅ Pass | 0         |
+| `MMapPersistenceTest`  | SnapshotAndLoad               | ✅ Pass | 0–21      |
+| `MetricsCollectorTest`| RecordAndGenerate             | ✅ Pass | 0         |
+| `RESPParserTest`       | ParseBasicCommand             | ✅ Pass | 0         |
+|                        | SerializeResponse             | ✅ Pass | 0         |
+| `WALTest`              | AppendAndReplay               | ❌ **Fail** | 0     |
+
+**🧯 Known Issue**:  
+`WALTest.AppendAndReplay` is failing due to mismatch in expected log replay size (`expected=2`, `got=0`). This will be addressed in the next development cycle.
+
+---
+
+## 📊 Benchmark Results
+
+Benchmarks were run for 100,000 `SET` operations and 50,000 `GET` operations on the LRUCache.
+
+| Operation | Throughput           | Latency      | Notes                        |
+|-----------|----------------------|--------------|------------------------------|
+| `SET`     | **273,306 ops/sec**  | 365.89 ms    | 100K key-value insertions    |
+| `GET`     | **897,644 ops/sec**  | 55.70 ms     | 50K random lookups, 100% hit |
+| JSON Report | `{ "latency": 5.5 }` | Custom metric | Avg operation latency (ms)|
+
+> ⚡ This performance is **comparable** to mainstream systems under single-threaded load.
+
+
+

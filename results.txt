@@ -1,0 +1,118 @@
+Run 1
+
+root@e268cbba34fb:/app/build/tests# ./run_tests
+[==========] Running 8 tests from 5 test suites.
+[----------] Global test environment set-up.
+[----------] 3 tests from LRUCacheTest
+[ RUN      ] LRUCacheTest.BasicSetAndGet
+[       OK ] LRUCacheTest.BasicSetAndGet (0 ms)
+[ RUN      ] LRUCacheTest.ExpirationTest
+[       OK ] LRUCacheTest.ExpirationTest (2000 ms)
+[ RUN      ] LRUCacheTest.EvictionTest
+[       OK ] LRUCacheTest.EvictionTest (0 ms)
+[----------] 3 tests from LRUCacheTest (2000 ms total)
+
+[----------] 1 test from MMapPersistenceTest
+[ RUN      ] MMapPersistenceTest.SnapshotAndLoad
+[       OK ] MMapPersistenceTest.SnapshotAndLoad (21 ms)
+[----------] 1 test from MMapPersistenceTest (21 ms total)
+
+[----------] 1 test from MetricsCollectorTest
+[ RUN      ] MetricsCollectorTest.RecordAndGenerate
+Latency: 15.5ms
+Counter: test_ops incremented
+[       OK ] MetricsCollectorTest.RecordAndGenerate (0 ms)
+[----------] 1 test from MetricsCollectorTest (0 ms total)
+
+[----------] 2 tests from RESPParserTest
+[ RUN      ] RESPParserTest.ParseBasicCommand
+[       OK ] RESPParserTest.ParseBasicCommand (0 ms)
+[ RUN      ] RESPParserTest.SerializeResponse
+[       OK ] RESPParserTest.SerializeResponse (0 ms)
+[----------] 2 tests from RESPParserTest (0 ms total)
+
+[----------] 1 test from WALTest
+[ RUN      ] WALTest.AppendAndReplay
+/app/tests/test_WAL.cpp:14: Failure
+Expected equality of these values:
+  ops.size()
+    Which is: 0
+  2
+[  FAILED  ] WALTest.AppendAndReplay (0 ms)
+[----------] 1 test from WALTest (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 8 tests from 5 test suites ran. (2023 ms total)
+[  PASSED  ] 7 tests.
+[  FAILED  ] 1 test, listed below:
+[  FAILED  ] WALTest.AppendAndReplay
+
+ 1 FAILED TEST
+
+real    0m2.040s // total wall-clock time taken
+user    0m0.009s // time spent in user-space code
+sys     0m0.037s // time spent in kernel (I/O etc.)
+
+Run 2
+root@9d80a106c25a:/app/build/tests# ./run_tests | tee test_results.txt
+[==========] Running 8 tests from 5 test suites.
+[----------] Global test environment set-up.
+[----------] 3 tests from LRUCacheTest
+[ RUN      ] LRUCacheTest.BasicSetAndGet
+[       OK ] LRUCacheTest.BasicSetAndGet (0 ms)
+[ RUN      ] LRUCacheTest.ExpirationTest
+[       OK ] LRUCacheTest.ExpirationTest (2000 ms)
+[ RUN      ] LRUCacheTest.EvictionTest
+[       OK ] LRUCacheTest.EvictionTest (0 ms)
+[----------] 3 tests from LRUCacheTest (2001 ms total)
+
+[----------] 1 test from MMapPersistenceTest
+[ RUN      ] MMapPersistenceTest.SnapshotAndLoad
+[       OK ] MMapPersistenceTest.SnapshotAndLoad (0 ms)
+[----------] 1 test from MMapPersistenceTest (0 ms total)
+
+[----------] 1 test from MetricsCollectorTest
+[ RUN      ] MetricsCollectorTest.RecordAndGenerate
+Latency: 15.5ms
+Counter: test_ops incremented
+[       OK ] MetricsCollectorTest.RecordAndGenerate (0 ms)
+[----------] 1 test from MetricsCollectorTest (0 ms total)
+
+[----------] 2 tests from RESPParserTest
+[ RUN      ] RESPParserTest.ParseBasicCommand
+[       OK ] RESPParserTest.ParseBasicCommand (0 ms)
+[ RUN      ] RESPParserTest.SerializeResponse
+[       OK ] RESPParserTest.SerializeResponse (0 ms)
+[----------] 2 tests from RESPParserTest (0 ms total)
+
+[----------] 1 test from WALTest
+[ RUN      ] WALTest.AppendAndReplay
+/app/tests/test_WAL.cpp:14: Failure
+Expected equality of these values:
+  ops.size()
+    Which is: 0
+  2
+[  FAILED  ] WALTest.AppendAndReplay (0 ms)
+[----------] 1 test from WALTest (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 8 tests from 5 test suites ran. (2002 ms total)
+[  PASSED  ] 7 tests.
+[  FAILED  ] 1 test, listed below:
+[  FAILED  ] WALTest.AppendAndReplay
+
+ 1 FAILED TEST
+
+real    0m2.026s
+user    0m0.008s
+sys     0m0.016s
+
+Benchmark Results
+root@595fa24b7c68:/app/build# ./benchmark/run_benchmark | tee benchmark_results.txt
+[Benchmark] Initializing...
+[Benchmark] SET throughput: 273306 ops/sec
+Latency: 365.89ms
+[Benchmark] GET throughput: 897644 ops/sec | Hits: 50000
+Latency: 55.7014ms
+[Benchmark] JSON Report: {"latency":5.5}
+root@595fa24b7c68:/app/build# 
