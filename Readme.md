@@ -1,4 +1,4 @@
-# DistCache: A Redis-like Distributed Key-Value Store
+# DistCache: Distributed Key-Value Store
 
 Designed and benchmarked a modular architecture for a Redis-like cache engine. Achieved sub-millisecond performance in all core modules (LRU cache, parser, telemetry) with 100% test pass rate except WAL. MMap-based persistence achieved durable snapshot/load in 21 ms. TTL logic tested over real time to ensure correctness. Identified and isolated a fault in WAL replay parsing logic, confirming robustness of test framework.
 
